@@ -149,7 +149,7 @@
 
 	<build>
 
-		<finalName>event-webapp</finalName>
+		<finalName>webapp</finalName>
 
 		<plugins>
 
@@ -159,7 +159,7 @@
 				<version>9.0.5.v20130815</version>
 				<configuration>
 					<webAppConfig>
-						<contextPath>/event-webapp</contextPath>
+						<contextPath></contextPath>
 					</webAppConfig>
 					<jettyXml>src/main/resources/jetty-config.xml</jettyXml>
 				</configuration>
