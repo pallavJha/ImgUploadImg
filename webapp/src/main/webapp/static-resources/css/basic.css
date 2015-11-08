@@ -1,0 +1,100 @@
+.top-buffer {
+	margin-top: 20px;
+}
+
+.top-buffer-sm {
+	margin-top: 5px;
+}
+
+.top-buffer-header {
+	margin-top: 25px;
+}
+
+.bottom-buffer {
+	margin-bottom: 20px;
+}
+
+.loginDiv {
+	width: 400px;
+}
+
+.left-buffer {
+	margin-left: 10px;
+}
+
+.errorblock {
+	
+}
+
+.xxx-large {
+	font-size: -webkit-xxx-large;
+}
+
+.login-form-signin {
+	padding-bottom: 4em;
+	padding-left: 2em;
+	padding-right: 2em;
+	padding-top: 4em;
+	background-color: #f5f5f5;
+}
+
+.left-pad-0 {
+	padding-left: 0px;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	background-color: #fff;
+	border-color: #e7e7e7;
+	border-style: solid;
+	border-top-width: 1px;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+body>.container {
+	padding: 60px 15px 0;
+}
+
+.container .text-muted {
+	margin: 20px 0;
+}
+
+.footer>.container {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+code {
+	font-size: 80%;
+}
+
+.form_div {
+	background-color: ghostwhite;
+	padding-top: 20px;
+}
+
+#pacman {
+	width: 500px;
+	height: 500px;
+}
+
+.menu-left {
+	left: -49px;
+}
