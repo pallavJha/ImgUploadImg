@@ -10,7 +10,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>pl.event.webapp</groupId>
+	<groupId>pl.imguploadimg.webapp</groupId>
 
 	<artifactId>webapp</artifactId>
 
@@ -202,3 +202,4 @@
 
 	</build>
 </project>
+
