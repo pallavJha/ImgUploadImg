@@ -13,12 +13,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -52,11 +47,25 @@
 			<version>4.0.5.RELEASE</version>
 		</dependency>
 
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.8.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.3.Final</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-orm</artifactId>
 			<version>5.3.0.Final</version>
 		</dependency>
+
 		<!-- Everything Else -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -78,7 +87,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>event-base</finalName>
+		<finalName>base</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
