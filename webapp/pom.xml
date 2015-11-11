@@ -81,7 +81,7 @@
 				<version>9.0.5.v20130815</version>
 				<configuration>
 					<webAppConfig>
-						<contextPath></contextPath>
+						<contextPath>/</contextPath>
 					</webAppConfig>
 					<jettyXml>src/main/resources/jetty-config.xml</jettyXml>
 				</configuration>
