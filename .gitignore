@@ -3,3 +3,9 @@ target/
 .classpath/
 .project/
 .settings/
+auxiliary/.classpath
+auxiliary/.project
+base/.classpath
+base/.project
+webapp/.classpath
+webapp/.project
