@@ -76,9 +76,9 @@
 			<plugin>
 				<!-- 
 					Changes were made while shifting to java8
-					Below are the previous lines to copy-pasted
-					if an error occurs relating to java version
-					and jetty version.
+					Below are the previous lines to        be
+					copy-pasted if an error  occurs  relating 
+					to   java   version  and  jetty  version.
 					
 					<version>9.0.5.v20130815</version>
 					<source>1.8</source>
