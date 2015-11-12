@@ -16,8 +16,6 @@
 <script
 	src="${pageContext.request.contextPath}/static-resources/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script
-	src="${pageContext.request.contextPath}/static-resources/js/main.js"></script>
-<script
 	src="${pageContext.request.contextPath}/static-resources/notify/notify.min.js"></script>
 <script>
 function getContextPath(){

@@ -9,7 +9,7 @@
 	</div>
 	<div id="navbar" class="navbar-collapse txt-c">
 		<ul class="nav-menu">
-			<li><a href="${pageContext.request.contextPath}/app/home">
+			<li class="white-background"><a href="${pageContext.request.contextPath}/app/home">
 					<img id="brand2" alt="ImgUploadImg"
 					src="${pageContext.request.contextPath}/static-resources/images/brand2.png">
 			</a></li>
