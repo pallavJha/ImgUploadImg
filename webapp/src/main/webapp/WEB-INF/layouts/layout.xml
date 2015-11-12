@@ -47,5 +47,10 @@
 		<put-attribute name="title" value="Error 403" />
 		<put-attribute name="body" value="/WEB-INF/view/error403.jsp" />
 	</definition>
+	
+	<definition name="home" extends="DefaultTemplate">
+		<put-attribute name="title" value="Home" />
+		<put-attribute name="body" value="/WEB-INF/view/home.jsp" />
+	</definition>
 
 </tiles-definitions>

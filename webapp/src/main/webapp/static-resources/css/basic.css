@@ -98,3 +98,23 @@ code {
 .menu-left {
 	left: -49px;
 }
+#navbar{
+	overflow: hidden;
+}
+#brand2 {
+	max-width: 100%;
+    height:60px;
+}
+
+.nav-menu{
+	list-style-type: none;	
+}
+
+.margin-auto{
+	margin: 0px auto;
+}
+
+.txt-c{
+	
+	text-align:center;
+}
