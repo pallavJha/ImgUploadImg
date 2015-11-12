@@ -1,5 +1,8 @@
 package pl.imguploadimg.webapp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BaseController {
 
 	@RequestMapping("home")
-	public String functionWithoutName(){
+	public String functionWithoutName(HttpServletRequest req, HttpSession session){
 		return "home";
 	}
 }
