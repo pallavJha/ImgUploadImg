@@ -48,6 +48,11 @@
 		<put-attribute name="body" value="/WEB-INF/view/error403.jsp" />
 	</definition>
 	
+	<definition name="error500" extends="DefaultTemplate">
+		<put-attribute name="title" value="Error 500" />
+		<put-attribute name="body" value="/WEB-INF/view/error500.jsp" />
+	</definition>
+	
 	<definition name="home" extends="DefaultTemplate">
 		<put-attribute name="title" value="Home" />
 		<put-attribute name="body" value="/WEB-INF/view/home.jsp" />

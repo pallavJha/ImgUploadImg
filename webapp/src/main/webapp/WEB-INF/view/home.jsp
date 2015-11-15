@@ -7,7 +7,7 @@
 		</div>
 	</div>
 	<div class="col-md-1">
-		<button type="button" class="btn btn-info">Info</button>
+		<button type="button" class="btn btn-info" id="send_link">Info</button>
 	</div>
 </div>
 <script src="${pagecontext.request.contextpath}/static-resources/js/home.js"></script>

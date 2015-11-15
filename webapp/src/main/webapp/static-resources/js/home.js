@@ -1,8 +1,25 @@
 /**
  * JS File for home.jsp
  */
+function sendLinkToServer(){
+	$.ajax({
+		url     : getContextPath()+"/app/url",
+		async   : false,
+		type    : "GET",
+		data    :{
+					"url":$("#urlHolder").val()
+				 },
+		success : function(result) {
+					console.log(result);
+				 },
+		error   : function(jQXHR){
+					$.notify("Error in getting username!", "error");
+				 }
+	});
+}
+
 $(document).ready(function(){
-	$("#urlHolder").change(function(){
-		console.log("#url-holder changed.");
+	$("#send_link").click(function(){
+		sendLinkToServer();
 	});
 }());
