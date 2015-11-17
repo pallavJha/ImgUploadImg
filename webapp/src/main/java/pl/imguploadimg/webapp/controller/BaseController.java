@@ -31,13 +31,10 @@ public class BaseController {
 	@Autowired
 	@Qualifier("loggerService")
 	LoggerService loggerService;
-	
+
 	@Autowired
 	@Qualifier("htmlService")
 	HTMLService htmlService;
-	
-	@Value("${useSystemProxy}")
-	Boolean useSystemProxy;
 
 	@RequestMapping("home")
 	public String functionWithoutName(HttpServletRequest req,
@@ -49,12 +46,9 @@ public class BaseController {
 	@RequestMapping(value = "url", method = RequestMethod.GET)
 	public String socketConnection(@RequestParam("url") String url,
 			HttpServletRequest req, HttpSession session) throws IOException {
-		if(useSystemProxy){
-			System.setProperty("java.net.useSystemProxies", "true");
-		}
 		htmlService.findImagesInInputStream(url);
-		
-		//System.
+
+		// System.
 		return null;
 	}
 
