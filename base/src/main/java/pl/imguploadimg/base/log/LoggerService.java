@@ -8,9 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 @Qualifier("loggerService")
 public class LoggerService {
-	private static Logger projectLogger = LoggerFactory.getLogger("pl.imguploadimg");
+	private static Logger projectLogger = LoggerFactory
+			.getLogger("pl.imguploadimg");
 
 	public void log(String str) {
 		projectLogger.info(str);
+	}
+
+	public void spacedLog(String str) {
+		projectLogger.info("\n**********************************\n\n" + str
+				+ "\n\n**********************************\n");
 	}
 }
