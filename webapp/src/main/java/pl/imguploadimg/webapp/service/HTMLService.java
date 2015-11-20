@@ -105,7 +105,7 @@ public class HTMLService {
 					&& cbuf[i + 3] == 'g') {
 				for (int j = i; j < cbuf.length; j++) {
 					if (cbuf[j] == '>') {
-						char[] tempCharArr = new char[(j - i) + 1];
+						char[] tempCharArr = new char[(j - i) + 2];
 						System.arraycopy(cbuf, i, tempCharArr, 0, (j - i));
 						imgList.add(new String(tempCharArr));
 						i = j;
