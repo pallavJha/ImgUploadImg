@@ -18,12 +18,16 @@ public class LoggerService {
 	}
 
 	public void spacedLog(String lhs, String rhs) {
-		if (lhs == null) {
+		if (lhs == null && rhs != null) {
 			lhs = "";
 			rhs = "\b\b\b" + rhs;
 		}
-		if (rhs == null) {
+		if (lhs != null && rhs == null) {
 			rhs = "\b\b\b";
+		}
+		if(rhs == null && lhs == null){
+			lhs= rhs = "";
+			rhs = "\b\b\b" + rhs;
 		}
 		projectLogger.info("\n**********************************\n\n" + lhs
 				+ " = " + rhs + "\n\n**********************************\n");
