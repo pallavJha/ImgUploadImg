@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import pl.imguploadimg.base.log.LoggerService;
 
-@Component
+@Component("imageTypeExtensionCombo")
 public class ImageTypeExtensionCombo {
 
 	@Autowired
