@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import pl.imguploadimg.base.exception.NoContentTypeAvailabeException;
 import pl.imguploadimg.base.helper.ImageTypeExtensionCombo;
 import pl.imguploadimg.base.log.LoggerService;
 
@@ -68,7 +69,7 @@ public class HTMLService {
 		URLConnection urlConnection = postURL.openConnection();
 		String mime = findMIME(urlConnection);
 		if(mime == null){
-			
+			throw new NoContentTypeAvailabeException("Content Type found null.");
 		}
 		if (mime.equals(HTML_TYPE)) {
 

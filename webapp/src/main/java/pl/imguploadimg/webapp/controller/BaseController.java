@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import pl.imguploadimg.base.exception.NoContentTypeAvailabeException;
 import pl.imguploadimg.base.log.LoggerService;
 import pl.imguploadimg.webapp.service.HTMLService;
 
@@ -62,6 +63,8 @@ public class BaseController {
 		mue.printStackTrace();
 		if (mue instanceof MalformedURLException) {
 			msg = "Malformed URL has been sent.";
+		} else if (mue instanceof NoContentTypeAvailabeException) {
+			msg = mue.getMessage();
 		} else if (mue instanceof IOException) {
 			msg = "I/O anomaly.";
 		} else {
