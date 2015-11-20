@@ -30,21 +30,6 @@ public class HTMLService {
 	@Qualifier("imageTypeExtensionCombo")
 	ImageTypeExtensionCombo imageTypeExtensionCombo;
 
-	@Value("${useSystemProxy}")
-	Boolean useSystemProxy;
-
-	@Value("${proxyURL}")
-	String proxyURL;
-
-	@Value("${proxyPort}")
-	String proxyPort;
-
-	@Value("${username}")
-	String username;
-
-	@Value("${password}")
-	String password;
-
 	static String HTML_TYPE = "HTML";
 
 	static String HTML_CONTENT_TYPE = "text/html";
@@ -55,21 +40,13 @@ public class HTMLService {
 
 	public void findImagesInInputStream(String url) throws IOException {
 
-		if (useSystemProxy) {
-			System.setProperty("java.net.useSystemProxies", "true");
-			System.getProperties().put("http.proxyHost", proxyURL);
-			System.getProperties().put("http.proxyPort", proxyPort);
-			System.getProperties().put("http.proxyUser", username);
-			System.getProperties().put("http.proxyPassword", password);
-		}
-
 		URL postURL = new URL(url);
 		loggerService.logUrlData(postURL);
 
 		URLConnection urlConnection = postURL.openConnection();
 		String mime = findMIME(urlConnection);
 		if(mime == null){
-			throw new NoContentTypeAvailabeException("Content Type found null.");
+			throw new NoContentTypeAvailabeException("Content Type not found for the url.");
 		}
 		if (mime.equals(HTML_TYPE)) {
 

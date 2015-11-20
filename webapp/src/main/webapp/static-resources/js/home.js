@@ -13,7 +13,8 @@ function sendLinkToServer() {
 			console.log(result);
 		},
 		error : function(jQXHR) {
-			$.notify("Error in getting username!", "error");
+			console.log(jQXHR);
+			$.notify(jQXHR.responseText, "error");
 		}
 	});
 }
