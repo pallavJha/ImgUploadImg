@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -42,28 +43,33 @@ public class HTMLService {
 
 		URL postURL = new URL(url);
 		loggerService.logUrlData(postURL);
+		InputStream inputStream;
 
-		URLConnection urlConnection = postURL.openConnection();
+		HttpURLConnection urlConnection = (HttpURLConnection) postURL.openConnection();
+		urlConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
 		String mime = findMIME(urlConnection);
 		if (mime == null) {
-			throw new NoContentTypeAvailabeException(
-					"Content Type not found for the url.");
+			urlConnection.disconnect();
+			throw new NoContentTypeAvailabeException("Content Type not found for the url.");
 		}
 		if (mime.equals(NON_HTML_NON_IMAGE_TYPE)) {
+			urlConnection.disconnect();
 			throw new NoContentTypeAvailabeException("Image or HTML only.");
 		}
 		if (mime.equals(HTML_TYPE)) {
-
-			InputStream inputStream = urlConnection.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					inputStream));
+			
 			String line;
+			inputStream = urlConnection.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+
 			StringBuilder sb = new StringBuilder("");
 			while ((line = br.readLine()) != null) {
 				sb.append(line);
 			}
+			inputStream.close();
+			br.close();
+			
 			findImagesFromHTML(sb.toString());
-
 		}
 	}
 
@@ -79,10 +85,9 @@ public class HTMLService {
 			return HTML_TYPE;
 		}
 
-		Set<String> imgContentTypeSet = ImageTypeExtensionCombo.typeExtMap
-				.keySet();
-		ArrayList<String> imgContentTypeArrayList = new ArrayList<String>(
-				imgContentTypeSet);
+		Set<String> imgContentTypeSet = ImageTypeExtensionCombo.typeExtMap.keySet();
+		ArrayList<String> imgContentTypeArrayList = new ArrayList<String>(imgContentTypeSet);
+		
 		for (int i = 0; i < imgContentTypeArrayList.size(); i++) {
 			if (contentType.contains(imgContentTypeArrayList.get(i))) {
 				return IMAGE_TYPE;
