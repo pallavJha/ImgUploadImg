@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import pl.imguploadimg.base.log.LoggerService;
 
-@Component
+@Component()
 public class ProxyConfigurer {
 
 	@Autowired

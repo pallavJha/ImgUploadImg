@@ -45,13 +45,18 @@ public class HTMLService {
 
 		URLConnection urlConnection = postURL.openConnection();
 		String mime = findMIME(urlConnection);
-		if(mime == null){
-			throw new NoContentTypeAvailabeException("Content Type not found for the url.");
+		if (mime == null) {
+			throw new NoContentTypeAvailabeException(
+					"Content Type not found for the url.");
+		}
+		if (mime.equals(NON_HTML_NON_IMAGE_TYPE)) {
+			throw new NoContentTypeAvailabeException("Image or HTML only.");
 		}
 		if (mime.equals(HTML_TYPE)) {
 
 			InputStream inputStream = urlConnection.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					inputStream));
 			String line;
 			StringBuilder sb = new StringBuilder("");
 			while ((line = br.readLine()) != null) {
@@ -64,32 +69,35 @@ public class HTMLService {
 
 	public String findMIME(URLConnection urlConnection) throws IOException {
 		String contentType = urlConnection.getContentType();
-		loggerService.spacedLog(null,contentType);
-		
-		if(contentType == null){
+		loggerService.spacedLog(null, contentType);
+
+		if (contentType == null) {
 			return null;
 		}
-		
+
 		if (contentType.contains(HTML_CONTENT_TYPE)) {
 			return HTML_TYPE;
 		}
-		
-		Set<String> imgContentTypeSet = ImageTypeExtensionCombo.typeExtMap.keySet();
-		ArrayList<String> imgContentTypeArrayList = new ArrayList<String>(imgContentTypeSet);
-		for (int i = 0; i < imgContentTypeArrayList.size(); i++){
-			if(contentType.contains(imgContentTypeArrayList.get(i))){
+
+		Set<String> imgContentTypeSet = ImageTypeExtensionCombo.typeExtMap
+				.keySet();
+		ArrayList<String> imgContentTypeArrayList = new ArrayList<String>(
+				imgContentTypeSet);
+		for (int i = 0; i < imgContentTypeArrayList.size(); i++) {
+			if (contentType.contains(imgContentTypeArrayList.get(i))) {
 				return IMAGE_TYPE;
 			}
 		}
-		return null;
+		return NON_HTML_NON_IMAGE_TYPE;
 	}
-	
+
 	public void findImagesFromHTML(String htmlString) {
 		ArrayList<String> imgList = new ArrayList<String>();
 		String str = htmlString;
 		char[] cbuf = str.toCharArray();
 		for (int i = 0; i < cbuf.length; i++) {
-			if (cbuf[i] == '<' && cbuf[i + 1] == 'i' && cbuf[i + 2] == 'm' && cbuf[i + 3] == 'g') {
+			if (cbuf[i] == '<' && cbuf[i + 1] == 'i' && cbuf[i + 2] == 'm'
+					&& cbuf[i + 3] == 'g') {
 				for (int j = i; j < cbuf.length; j++) {
 					if (cbuf[j] == '>') {
 						char[] tempCharArr = new char[(j - i) + 1];
