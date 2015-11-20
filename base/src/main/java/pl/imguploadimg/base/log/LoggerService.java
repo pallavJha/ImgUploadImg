@@ -17,11 +17,18 @@ public class LoggerService {
 		projectLogger.info(str);
 	}
 
-	public void spacedLog(String str) {
-		projectLogger.info("\n**********************************\n\n" + str
-				+ "\n\n**********************************\n");
+	public void spacedLog(String lhs, String rhs) {
+		if (lhs == null) {
+			lhs = "";
+			rhs = "\b\b\b" + rhs;
+		}
+		if (rhs == null) {
+			rhs = "\b\b\b";
+		}
+		projectLogger.info("\n**********************************\n\n" + lhs
+				+ " = " + rhs + "\n\n**********************************\n");
 	}
-	
+
 	public void logUrlData(URL aURL) {
 		log("protocol = " + aURL.getProtocol());
 		log("authority = " + aURL.getAuthority());

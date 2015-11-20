@@ -86,7 +86,7 @@ public class HTMLService {
 
 	public String findMIME(URLConnection urlConnection) throws IOException {
 		String contentType = urlConnection.getContentType();
-		loggerService.spacedLog(contentType);
+		loggerService.spacedLog(null,contentType);
 		
 		if(contentType == null){
 			return null;

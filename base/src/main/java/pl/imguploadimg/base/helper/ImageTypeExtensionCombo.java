@@ -22,7 +22,7 @@ public class ImageTypeExtensionCombo {
 	
 	@PostConstruct
 	public void insertion(){
-		loggerService.spacedLog("Initiating ImageTypeExtensionCombo#insertion()!");
+		loggerService.spacedLog(null,"Initiating ImageTypeExtensionCombo#insertion()!");
 		typeExtMap.put("image/x-jg",".art");
 		typeExtMap.put("image/bmp",".art");
 		typeExtMap.put("image/bmp",".bmp");
