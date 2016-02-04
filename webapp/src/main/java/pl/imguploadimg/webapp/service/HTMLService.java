@@ -50,8 +50,9 @@ public class HTMLService {
 		urlConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
 		String mime = findMIME(urlConnection);
 		if (mime == null) {
-			urlConnection.disconnect();
-			throw new NoContentTypeAvailabeException("Content Type not found for the url.");
+			//urlConnection.disconnect();
+			//throw new NoContentTypeAvailabeException("Content Type not found for the url.");
+			mime = new String(HTML_TYPE);
 		}
 		if (mime.equals(NON_HTML_NON_IMAGE_TYPE)) {
 			urlConnection.disconnect();
