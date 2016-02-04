@@ -42,6 +42,7 @@ public class HTMLService {
 	public void findImagesInInputStream(String url) throws IOException {
 
 		URL postURL = new URL(url);
+		String protocolHost = postURL.getProtocol() + "://" + postURL.getHost() + (postURL.getPort() == -1 ? "" : postURL.getPort());
 		loggerService.logUrlData(postURL);
 		InputStream inputStream;
 
@@ -69,7 +70,7 @@ public class HTMLService {
 			inputStream.close();
 			br.close();
 			
-			findImagesFromHTML(sb.toString());
+			findAnchorsFromHTML(sb.toString());
 		}
 	}
 
@@ -107,7 +108,7 @@ public class HTMLService {
 					if (cbuf[j] == '>') {
 						char[] tempCharArr = new char[(j - i) + 2];
 						System.arraycopy(cbuf, i, tempCharArr, 0, (j - i));
-						imgList.add(new String(tempCharArr));
+						imgList.add(new String(tempCharArr).trim()+">");
 						i = j;
 						break;
 					}
@@ -116,6 +117,51 @@ public class HTMLService {
 		}
 		loggerService.log(imgList.size() + " image(s) found.");
 		for (String s : imgList) {
+			loggerService.log(s);
+		}
+	}
+	
+	public void findAnchorsFromHTML(String htmlString) {
+		ArrayList<String> anchorList = new ArrayList<String>();
+		ArrayList<String> linksList = new ArrayList<String>();
+		String str = htmlString;
+		char[] cbuf = str.toCharArray();
+		for (int i = 0; i < cbuf.length; i++) {
+			if (cbuf[i] == '<' && cbuf[i + 1] == 'a') {
+				for (int j = i; j < cbuf.length; j++) {
+					if (cbuf[j] == '<' && cbuf[j+1] == '/' && cbuf[j+2] == 'a' && cbuf[j+3] == '>') {
+						char[] tempCharArr = new char[(j - i) + 4];
+						System.arraycopy(cbuf, i, tempCharArr, 0, (j + 3 - i));
+						anchorList.add(new String(tempCharArr).trim()+">");
+						i = j;
+						break;
+					}
+				}
+			}
+		}
+		loggerService.log(anchorList.size() + " [anchor/link](s) found.");
+		for (String s : anchorList) {
+			loggerService.log(s);
+			complete:for (int i = 0; i < s.length(); i++) {
+				if(s.charAt(i) == 'h' && s.charAt(i+1) == 'r'  && s.charAt(i+2) == 'e' && s.charAt(i+3) == 'f'){
+					for (int j = i + 4; j < s.length(); j++) {
+						if (s.charAt(j) == '=') {
+							for (int k = j+1; k < s.length(); k++) {
+								if(s.charAt(k) == '\"' || s.charAt(k) == '\''){
+									for (int l = k+1; l < s.length(); l++) {
+										if(s.charAt(l) == '\"' || s.charAt(l) == '\''){
+											linksList.add(s.substring(k+1, l));
+											break complete;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		for(String s : linksList){
 			loggerService.log(s);
 		}
 	}
