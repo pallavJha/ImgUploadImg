@@ -8,11 +8,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import pl.imguploadimg.base.exception.NoContentTypeAvailabeException;
@@ -38,6 +40,8 @@ public class HTMLService {
 	static String IMAGE_TYPE = "IMAGE";
 
 	static String NON_HTML_NON_IMAGE_TYPE = "OTHERS";
+	
+	static UrlValidator urlValidator = new UrlValidator();
 
 	public void findImagesInInputStream(String url) throws IOException {
 
@@ -72,7 +76,7 @@ public class HTMLService {
 			inputStream.close();
 			br.close();
 			
-			findAnchorsFromHTML(sb.toString());
+			findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
 			urlConnection.disconnect();
 		}
 	}
@@ -124,9 +128,10 @@ public class HTMLService {
 		}
 	}
 	
-	public void findAnchorsFromHTML(String htmlString) {
+	public Set<String> findAnchorsFromHTML(String htmlString, String protocol, String protocolHost) {
 		ArrayList<String> anchorList = new ArrayList<String>();
 		ArrayList<String> linksList = new ArrayList<String>();
+		Set<String> links = new HashSet<String>();
 		String str = htmlString;
 		char[] cbuf = str.toCharArray();
 		for (int i = 0; i < cbuf.length; i++) {
@@ -166,10 +171,28 @@ public class HTMLService {
 		}
 		for(int i = 0; i< linksList.size();i++){
 			String s = linksList.get(i);
-			if(s.charAt(0) == '\\' && s.charAt(1) == '\\'){
-				s = "http:" + s;
+			if(s.length() > 2  && s.charAt(0) == '/' && s.charAt(1) == '/'){
+				s = protocol + s;
+				linksList.remove(i);
+				linksList.add(i, s);
 			}
-			loggerService.log(linksList.get(i));
+			else if(s.length() > 2  && s.charAt(0) == '/'){
+				s = protocolHost + s;
+				linksList.remove(i);
+				linksList.add(i, s);
+			}
+			if(!urlValidator.isValid(s)){
+				linksList.remove(i);
+			}
+			else {
+				links.add(linksList.get(i));
+			}
 		}
+		
+		for(String s : links){
+			loggerService.log(s);
+		}
+		
+		return links;
 	}
 }
