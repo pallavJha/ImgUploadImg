@@ -42,6 +42,7 @@ public class HTMLService {
 	public void findImagesInInputStream(String url) throws IOException {
 
 		URL postURL = new URL(url);
+		String protocol = postURL.getProtocol();
 		String protocolHost = postURL.getProtocol() + "://" + postURL.getHost() + (postURL.getPort() == -1 ? "" : postURL.getPort());
 		loggerService.logUrlData(postURL);
 		InputStream inputStream;
@@ -72,6 +73,7 @@ public class HTMLService {
 			br.close();
 			
 			findAnchorsFromHTML(sb.toString());
+			urlConnection.disconnect();
 		}
 	}
 
@@ -162,8 +164,12 @@ public class HTMLService {
 				}
 			}
 		}
-		for(String s : linksList){
-			loggerService.log(s);
+		for(int i = 0; i< linksList.size();i++){
+			String s = linksList.get(i);
+			if(s.charAt(0) == '\\' && s.charAt(1) == '\\'){
+				s = "http:" + s;
+			}
+			loggerService.log(linksList.get(i));
 		}
 	}
 }
