@@ -22,7 +22,7 @@ public class CrawlerService {
 	@Qualifier("imageTypeExtensionCombo")
 	ImageTypeExtensionCombo imageTypeExtensionCombo;
 	
-	public void startCrawl(Set<String> links, URL url, String protocol, String protocolHost){
+	public void startCrawler(Set<String> links, URL url, String protocol, String protocolHost){
 		
 	}
 }
