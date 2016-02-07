@@ -8,8 +8,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.validator.routines.UrlValidator;
@@ -32,6 +34,10 @@ public class HTMLService {
 	@Autowired
 	@Qualifier("imageTypeExtensionCombo")
 	ImageTypeExtensionCombo imageTypeExtensionCombo;
+	
+	@Autowired
+	@Qualifier("crawlerService")
+	CrawlerService crawlerService;
 
 	static String HTML_TYPE = "HTML";
 
@@ -76,7 +82,13 @@ public class HTMLService {
 			inputStream.close();
 			br.close();
 			
-			findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
+			List<String> anchorList = findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
+			if(anchorList != null && anchorList.size() > 0) {
+				anchorList.add(0, url);
+			}
+			else {
+				findImagesFromHTML(sb.toString());
+			}
 			urlConnection.disconnect();
 		}
 	}
@@ -128,9 +140,9 @@ public class HTMLService {
 		}
 	}
 	
-	public Set<String> findAnchorsFromHTML(String htmlString, String protocol, String protocolHost) {
-		ArrayList<String> anchorList = new ArrayList<String>();
-		ArrayList<String> linksList = new ArrayList<String>();
+	public List<String> findAnchorsFromHTML(String htmlString, String protocol, String protocolHost) {
+		List<String> anchorList = new LinkedList<String>();
+		List<String> linksList = new LinkedList<String>();
 		Set<String> links = new HashSet<String>();
 		String str = htmlString;
 		char[] cbuf = str.toCharArray();
@@ -192,7 +204,8 @@ public class HTMLService {
 		for(String s : links){
 			loggerService.log(s);
 		}
-		
-		return links;
+		anchorList.clear();
+		anchorList.addAll(links);
+		return anchorList;
 	}
 }

@@ -1,7 +1,7 @@
 package pl.imguploadimg.webapp.service;
 
 import java.net.URL;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,7 +22,7 @@ public class CrawlerService {
 	@Qualifier("imageTypeExtensionCombo")
 	ImageTypeExtensionCombo imageTypeExtensionCombo;
 	
-	public void startCrawler(Set<String> links, URL url, String protocol, String protocolHost){
+	public void startCrawler(List<String> links, URL url, String protocol, String protocolHost){
 		
 	}
 }
