@@ -53,7 +53,7 @@ public class HTMLService {
 
 		URL postURL = new URL(url);
 		String protocol = postURL.getProtocol();
-		String protocolHost = postURL.getProtocol() + "://" + postURL.getHost() + (postURL.getPort() == -1 ? "" : postURL.getPort());
+		String protocolHost = postURL.getProtocol() + "://" + postURL.getHost() + (postURL.getPort() == -1 ? "" : ":"+postURL.getPort());
 		loggerService.logUrlData(postURL);
 		InputStream inputStream;
 
@@ -82,13 +82,14 @@ public class HTMLService {
 			inputStream.close();
 			br.close();
 			
-			List<String> anchorList = findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
+			/*List<String> anchorList = findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
 			if(anchorList != null && anchorList.size() > 0) {
 				anchorList.add(0, url);
 			}
 			else {
 				findImagesFromHTML(sb.toString());
-			}
+			}*/
+			findImagesFromHTML(sb.toString(), protocol, protocolHost);
 			urlConnection.disconnect();
 		}
 	}
@@ -116,8 +117,9 @@ public class HTMLService {
 		return NON_HTML_NON_IMAGE_TYPE;
 	}
 
-	public void findImagesFromHTML(String htmlString) {
-		ArrayList<String> imgList = new ArrayList<String>();
+	public void findImagesFromHTML(String htmlString, String protocol, String protocolHost) {
+		LinkedList<String> imgList = new LinkedList<String>();
+		LinkedList<String> imgUrlList = new LinkedList<String>();
 		String str = htmlString;
 		char[] cbuf = str.toCharArray();
 		for (int i = 0; i < cbuf.length; i++) {
@@ -136,7 +138,53 @@ public class HTMLService {
 		}
 		loggerService.log(imgList.size() + " image(s) found.");
 		for (String s : imgList) {
-			loggerService.log(s);
+			complete: for (int i = 0; i < s.length(); i++){
+				if(s.charAt(i)=='s' && s.charAt(i+1) == 'r' && s.charAt(i+2) == 'c'){
+					for (int j = i+3; j < s.length(); j++) {
+						if(s.charAt(j) == '='){
+							for (int k = j; k < s.length(); k++) {
+								if(s.charAt(k) == '\"' || s.charAt(k) == '\''){
+									for (int l = k+1; l < s.length(); l++) {
+										if(s.charAt(l) == '\"' || s.charAt(l) == '\''){
+											imgUrlList.add(s.substring(k+1, l).trim());
+											break complete;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		imgList.clear();
+		for(int i = 0; i< imgUrlList.size();i++){
+			String s = imgUrlList.get(i);
+			if(s.length() > 2  && s.charAt(0) == '/' && s.charAt(1) == '/'){
+				s = protocol +":"+ s;
+				imgUrlList.remove(i);
+				imgUrlList.add(i, s);
+			}
+			else if(s.length() > 2  && s.charAt(0) == '/'){
+				s = protocolHost + s;
+				imgUrlList.remove(i);
+				imgUrlList.add(i, s);
+			}
+			if(!urlValidator.isValid(s)){
+				imgUrlList.remove(i);
+			}
+			else {
+				imgList.add(imgUrlList.get(i));
+			}
+		}
+		imgUrlList.clear();
+		
+		for(String s : imgList){
+			StringBuilder imgElement = new StringBuilder("<img src=\"");
+			imgElement.append(s);
+			imgElement.append("\" width=\"200\" height=\"200\">");
+			imgUrlList.add(imgElement.toString());
+			loggerService.log(imgElement.toString());
 		}
 	}
 	
@@ -184,7 +232,7 @@ public class HTMLService {
 		for(int i = 0; i< linksList.size();i++){
 			String s = linksList.get(i);
 			if(s.length() > 2  && s.charAt(0) == '/' && s.charAt(1) == '/'){
-				s = protocol + s;
+				s = protocol + ":" + s;
 				linksList.remove(i);
 				linksList.add(i, s);
 			}
