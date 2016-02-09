@@ -6,5 +6,6 @@ Hello,
 <br/>
 <p>Suggestions & improvements are welcomed & entertained.</p>
 
-Thanks,
-Pallav Jha (pallav_kumar71 at yahoo dot com)
+Thanks,<br/>
+Pallav Jha<br/>
+pallav_kumar71 at yahoo dot com
