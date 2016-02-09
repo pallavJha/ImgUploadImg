@@ -81,16 +81,16 @@ public class HTMLService {
 			}
 			inputStream.close();
 			br.close();
-			
-			/*List<String> anchorList = findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
-			if(anchorList != null && anchorList.size() > 0) {
+			urlConnection.disconnect();
+			List<String> anchorList = findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
+			if (anchorList != null && anchorList.size() > 0) {
 				anchorList.add(0, url);
+				List<String> imageList = findImagesFromHTML(sb.toString(), protocol, protocolHost);
+				crawlerService.startCrawler(anchorList, imageList, postURL, protocol, protocolHost);
 			}
 			else {
-				findImagesFromHTML(sb.toString());
-			}*/
-			findImagesFromHTML(sb.toString(), protocol, protocolHost);
-			urlConnection.disconnect();
+				List<String> images = findImagesFromHTML(sb.toString(), protocol, protocolHost);
+			}
 		}
 	}
 
@@ -117,7 +117,7 @@ public class HTMLService {
 		return NON_HTML_NON_IMAGE_TYPE;
 	}
 
-	public void findImagesFromHTML(String htmlString, String protocol, String protocolHost) {
+	public List<String> findImagesFromHTML(String htmlString, String protocol, String protocolHost) {
 		LinkedList<String> imgList = new LinkedList<String>();
 		LinkedList<String> imgUrlList = new LinkedList<String>();
 		String str = htmlString;
@@ -186,6 +186,7 @@ public class HTMLService {
 			imgUrlList.add(imgElement.toString());
 			loggerService.log(imgElement.toString());
 		}
+		return imgUrlList;
 	}
 	
 	public List<String> findAnchorsFromHTML(String htmlString, String protocol, String protocolHost) {

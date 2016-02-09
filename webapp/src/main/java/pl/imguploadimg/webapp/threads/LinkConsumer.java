@@ -12,23 +12,25 @@ import pl.imguploadimg.base.log.LoggerService;
 public class LinkConsumer extends Thread {
 
 	private List<String> anchorList;
+	private List<String> imageList;
 	private URL url;
 	private String protocol;
 	private String protocolHost;
 	private LoggerService loggerService;
 	static UrlValidator urlValidator = new UrlValidator();
 
-	public LinkConsumer(List<String> anchorList, URL url, String protocol,String protocolHost, LoggerService loggerService) {
+	public LinkConsumer(List<String> anchorList, List<String> imageList, URL url, String protocol,String protocolHost, LoggerService loggerService) {
 		
 		super(protocolHost.replace(protocol, "").replaceAll("/", ""));
 		this.anchorList = anchorList;
+		this.imageList = imageList;
 		this.url = url;
 		this.protocol = protocol;
 		this.protocolHost = protocolHost;
 		this.loggerService = loggerService;
 	}
 	
-	public void findImagesFromHTML(String htmlString, String protocol, String protocolHost) {
+	public List<String> findImagesFromHTML(String htmlString, String protocol, String protocolHost) {
 		LinkedList<String> imgList = new LinkedList<String>();
 		LinkedList<String> imgUrlList = new LinkedList<String>();
 		String str = htmlString;
@@ -97,7 +99,6 @@ public class LinkConsumer extends Thread {
 			imgUrlList.add(imgElement.toString());
 			loggerService.log(imgElement.toString());
 		}
+		return imgUrlList;
 	}
-	
-
 }
