@@ -55,7 +55,7 @@ public class BaseController {
 
 	@ExceptionHandler(IOException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	Object handleExceptions(IOException mue, HttpServletRequest request,
+	Object handleExceptions(Exception mue, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		String msg;

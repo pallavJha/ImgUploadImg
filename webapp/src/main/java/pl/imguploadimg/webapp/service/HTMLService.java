@@ -84,7 +84,6 @@ public class HTMLService {
 			urlConnection.disconnect();
 			List<String> anchorList = findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
 			if (anchorList != null && anchorList.size() > 0) {
-				anchorList.add(0, url);
 				List<String> imageList = findImagesFromHTML(sb.toString(), protocol, protocolHost);
 				crawlerService.startCrawler(anchorList, imageList, postURL, protocol, protocolHost);
 			}
