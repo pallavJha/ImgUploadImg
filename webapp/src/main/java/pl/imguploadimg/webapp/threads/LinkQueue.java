@@ -27,7 +27,7 @@ public class LinkQueue {
 		}
 	}
 
-	private Link head, tail;
+	private Link head, tail, next;
 
 	private long size = 0L;
 
@@ -71,5 +71,23 @@ public class LinkQueue {
 
 	public long size() {
 		return size;
+	}
+	
+	public boolean isEmpty(){
+		return head == null;
+	}
+	
+	public String next(){
+		if(next == null){
+			next = head;
+			return next.link;
+		}
+		next = next.next;
+		if(next != null){
+			return next.link;
+		}
+		else{
+			return null;
+		}
 	}
 }

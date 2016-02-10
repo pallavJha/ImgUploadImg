@@ -7,10 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.xml.serialize.HTMLSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -46,14 +44,14 @@ public class BaseController {
 
 	@RequestMapping(value = "url", method = RequestMethod.GET)
 	public String socketConnection(@RequestParam("url") String url,
-			HttpServletRequest req, HttpSession session) throws IOException {
+			HttpServletRequest req, HttpSession session) throws Exception {
 		htmlService.findImagesInInputStream(url);
 
 		// System.
 		return null;
 	}
 
-	@ExceptionHandler(IOException.class)
+	@ExceptionHandler(Exception.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	Object handleExceptions(Exception mue, HttpServletRequest request,
 			HttpServletResponse response) {

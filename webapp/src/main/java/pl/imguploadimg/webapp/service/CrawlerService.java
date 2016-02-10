@@ -25,10 +25,12 @@ public class CrawlerService {
 	@Qualifier("imageTypeExtensionCombo")
 	ImageTypeExtensionCombo imageTypeExtensionCombo;
 	
-	public void startCrawler(List<String> links, List<String> images, URL url, String protocol, String protocolHost){
+	public void startCrawler(List<String> links, List<String> images, URL url, String protocol, String protocolHost) throws Exception{
 		LinkQueue queue = new LinkQueue(links);
 		LinkProducer producer = new LinkProducer(links, url, protocol, protocolHost, queue, loggerService);
 		LinkConsumer consumer = new LinkConsumer(links, images, url, protocol, protocolHost, loggerService, queue);
-		
+		producer.start();
+		consumer.start();
+		Thread.currentThread().join();
 	}
 }

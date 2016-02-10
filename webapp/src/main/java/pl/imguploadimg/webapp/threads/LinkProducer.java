@@ -33,11 +33,8 @@ public class LinkProducer extends Thread {
 	private boolean stopThread = false;
 
 	private String HTML_TYPE = "HTML";
-
 	private String HTML_CONTENT_TYPE = "text/html";
-
 	private String IMAGE_TYPE = "IMAGE";
-
 	private String NON_HTML_NON_IMAGE_TYPE = "OTHERS";
 	
 	public LinkProducer(List<String> anchorList, URL url, String protocol,String protocolHost, LinkQueue queue, LoggerService loggerService) {
@@ -89,7 +86,7 @@ public class LinkProducer extends Thread {
         }
         String currentUrl = null;
         synchronized (queue) {
-        	currentUrl = queue.deQueue();
+        	currentUrl = queue.next();
         }
         if(currentUrl != null){
 
@@ -109,7 +106,7 @@ public class LinkProducer extends Thread {
     		}
     		if (mime.equals(NON_HTML_NON_IMAGE_TYPE)) {
     			urlConnection.disconnect();
-    			throw new NoContentTypeAvailabeException("Image or HTML only.");
+    			throw new NoContentTypeAvailabeException("Image or HTML only."+postURL);
     		}
     		if (mime.equals(HTML_TYPE)) {
     			

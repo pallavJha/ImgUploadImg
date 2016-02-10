@@ -8,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class HTMLService {
 	
 	static UrlValidator urlValidator = new UrlValidator();
 
-	public void findImagesInInputStream(String url) throws IOException {
+	public void findImagesInInputStream(String url) throws Exception {
 
 		URL postURL = new URL(url);
 		String protocol = postURL.getProtocol();
