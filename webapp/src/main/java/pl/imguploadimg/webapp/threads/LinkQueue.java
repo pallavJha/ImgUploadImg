@@ -2,7 +2,7 @@ package pl.imguploadimg.webapp.threads;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Set;
+import java.util.List;
 
 public class LinkQueue {
 
@@ -31,7 +31,7 @@ public class LinkQueue {
 
 	private long size = 0L;
 
-	public LinkQueue(Set<String> linkSet) {
+	public LinkQueue(List<String> linkSet) {
 		if (linkSet != null && linkSet.size() > 0) {
 			LinkedList<String> list = new LinkedList<String>(linkSet);
 			Iterator<String> listIterator = list.iterator();

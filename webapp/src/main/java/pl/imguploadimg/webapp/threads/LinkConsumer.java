@@ -16,10 +16,11 @@ public class LinkConsumer extends Thread {
 	private URL url;
 	private String protocol;
 	private String protocolHost;
+	private LinkQueue queue;
 	private LoggerService loggerService;
 	static UrlValidator urlValidator = new UrlValidator();
 
-	public LinkConsumer(List<String> anchorList, List<String> imageList, URL url, String protocol,String protocolHost, LoggerService loggerService) {
+	public LinkConsumer(List<String> anchorList, List<String> imageList, URL url, String protocol,String protocolHost, LoggerService loggerService, LinkQueue queue) {
 		
 		super(protocolHost.replace(protocol, "").replaceAll("/", ""));
 		this.anchorList = anchorList;
@@ -27,6 +28,7 @@ public class LinkConsumer extends Thread {
 		this.url = url;
 		this.protocol = protocol;
 		this.protocolHost = protocolHost;
+		this.queue = queue;
 		this.loggerService = loggerService;
 	}
 	

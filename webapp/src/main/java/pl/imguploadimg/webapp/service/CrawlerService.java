@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import pl.imguploadimg.base.helper.ImageTypeExtensionCombo;
 import pl.imguploadimg.base.log.LoggerService;
+import pl.imguploadimg.webapp.threads.LinkConsumer;
+import pl.imguploadimg.webapp.threads.LinkProducer;
+import pl.imguploadimg.webapp.threads.LinkQueue;
 
 @Service
 @Qualifier("crawlerService")
@@ -23,6 +26,9 @@ public class CrawlerService {
 	ImageTypeExtensionCombo imageTypeExtensionCombo;
 	
 	public void startCrawler(List<String> links, List<String> images, URL url, String protocol, String protocolHost){
+		LinkQueue queue = new LinkQueue(links);
+		LinkProducer producer = new LinkProducer(links, url, protocol, protocolHost, queue, loggerService);
+		LinkConsumer consumer = new LinkConsumer(links, images, url, protocol, protocolHost, loggerService, queue);
 		
 	}
 }
