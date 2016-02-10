@@ -39,7 +39,8 @@ public class CrawlerService {
 		//Thread.currentThread().join();
 		executorService.shutdown();
 		if (!executorService.awaitTermination(60, TimeUnit.SECONDS)){
-		    System.err.println("Threads didn't finish in 60000 seconds!");
+		    System.err.println("Threads didn't finish in 60 seconds!");
+		    return images;
 		}
 		return images;
 	}

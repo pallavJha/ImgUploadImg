@@ -10,7 +10,7 @@ function sendLinkToServer() {
 			"url" : $("#urlHolder").val()
 		},
 		success : function(result) {
-			console.log(result);
+			console.log(result.length);
 		},
 		error : function(jQXHR) {
 			console.log(jQXHR);
