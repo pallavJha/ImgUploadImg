@@ -29,7 +29,8 @@ public class LinkProducer extends Thread {
 	private UrlValidator urlValidator = new UrlValidator();
 	private LinkQueue queue;
 	private LoggerService loggerService;
-	private int MAX_QUEUE_SIZE = 100;
+	private int MAX_QUEUE_SIZE = 10;
+	private int counter = 0;
 	private boolean stopThread = false;
 
 	private String HTML_TYPE = "HTML";
@@ -80,7 +81,7 @@ public class LinkProducer extends Thread {
 
     private List<String> produce() throws Exception {
 
-        if (queue.size() == MAX_QUEUE_SIZE) {
+        if (counter++ == MAX_QUEUE_SIZE) {
         	stopThread = true;
             return null;
         }
@@ -152,7 +153,7 @@ public class LinkProducer extends Thread {
 		}
 		loggerService.log(anchorList.size() + " [anchor/link](s) found.");
 		for (String s : anchorList) {
-			loggerService.log(s);
+			//loggerService.log(s);
 			complete:for (int i = 0; i < s.length(); i++) {
 				if(s.charAt(i) == 'h' && s.charAt(i+1) == 'r'  && s.charAt(i+2) == 'e' && s.charAt(i+3) == 'f'){
 					for (int j = i + 4; j < s.length(); j++) {
