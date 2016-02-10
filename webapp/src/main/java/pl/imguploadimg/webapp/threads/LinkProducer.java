@@ -29,7 +29,7 @@ public class LinkProducer extends Thread {
 	private UrlValidator urlValidator = new UrlValidator();
 	private LinkQueue queue;
 	private LoggerService loggerService;
-	private int MAX_QUEUE_SIZE = 10;
+	private int MAX_QUEUE_SIZE = 2;
 	private int counter = 0;
 	private boolean stopThread = false;
 

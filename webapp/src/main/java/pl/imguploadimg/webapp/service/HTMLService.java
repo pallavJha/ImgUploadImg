@@ -48,14 +48,14 @@ public class HTMLService {
 	
 	static UrlValidator urlValidator = new UrlValidator();
 
-	public void findImagesInInputStream(String url) throws Exception {
+	public List<String> findImagesInInputStream(String url) throws Exception {
 
 		URL postURL = new URL(url);
 		String protocol = postURL.getProtocol();
 		String protocolHost = postURL.getProtocol() + "://" + postURL.getHost() + (postURL.getPort() == -1 ? "" : ":"+postURL.getPort());
 		loggerService.logUrlData(postURL);
 		InputStream inputStream;
-
+		List<String> images = null;
 		HttpURLConnection urlConnection = (HttpURLConnection) postURL.openConnection();
 		urlConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
 		String mime = findMIME(urlConnection);
@@ -84,12 +84,13 @@ public class HTMLService {
 			List<String> anchorList = findAnchorsFromHTML(sb.toString(), protocol, protocolHost);
 			if (anchorList != null && anchorList.size() > 0) {
 				List<String> imageList = findImagesFromHTML(sb.toString(), protocol, protocolHost);
-				crawlerService.startCrawler(anchorList, imageList, postURL, protocol, protocolHost);
+				images = crawlerService.startCrawler(anchorList, imageList, postURL, protocol, protocolHost);
 			}
 			else {
-				List<String> images = findImagesFromHTML(sb.toString(), protocol, protocolHost);
+				images = findImagesFromHTML(sb.toString(), protocol, protocolHost);
 			}
 		}
+		return images;
 	}
 
 	public String findMIME(URLConnection urlConnection) throws IOException {

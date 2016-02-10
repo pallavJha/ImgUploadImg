@@ -2,6 +2,7 @@ package pl.imguploadimg.webapp.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import flexjson.JSONSerializer;
 import pl.imguploadimg.base.exception.NoContentTypeAvailabeException;
 import pl.imguploadimg.base.log.LoggerService;
 import pl.imguploadimg.webapp.service.HTMLService;
@@ -43,12 +46,14 @@ public class BaseController {
 	}
 
 	@RequestMapping(value = "url", method = RequestMethod.GET)
+	@ResponseBody
 	public String socketConnection(@RequestParam("url") String url,
 			HttpServletRequest req, HttpSession session) throws Exception {
-		htmlService.findImagesInInputStream(url);
-
-		// System.
-		return null;
+		List<String> images = htmlService.findImagesInInputStream(url);
+		
+		JSONSerializer iSerializer = new JSONSerializer();
+		String jsonString = iSerializer.exclude("*.class").deepSerialize(images);
+		return jsonString;
 	}
 
 	@ExceptionHandler(Exception.class)
