@@ -41,4 +41,4 @@
   </div>
 </div>
 <script
-	src="${pagecontext.request.contextpath}/static-resources/js/home.js"></script>
+	src="<%=request.getContextPath()%>/static-resources/js/home.js"></script>
