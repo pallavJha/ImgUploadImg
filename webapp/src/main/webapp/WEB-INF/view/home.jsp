@@ -14,7 +14,12 @@
 		</div>
 	</div>
 </div>
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<div class="row" id="loading">
+	<div class="col-sm-offset-5 col-sm-2" align="center">
+		<img alt="loading" src="${pageContext.request.contextPath}/static-resources/images/loading.gif" height="75" width="75">
+	</div>
+</div>
+<button type="button" class="btn btn-primary btn-lg"  id = "modalButton" data-toggle="modal" data-target="#myModal">
   Launch demo modal
 </button>
 
