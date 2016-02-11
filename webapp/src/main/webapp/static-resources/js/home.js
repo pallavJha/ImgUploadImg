@@ -11,9 +11,8 @@ function sendLinkToServer() {
 			"url" : $("#urlHolder").val()
 		},
 		success : function(result) {
-			debugger;
-			console.log(result.length);
 			var parsed = JSON.parse(result);
+			console.log(parsed.length + "images found.");
 			var b = "";
 			for(var x = 0; x<parsed.length ; x++){
 				b = b + "<div class='row'>";

@@ -31,9 +31,13 @@ public class CrawlerService {
 	public List<String> startCrawler(List<String> links, List<String> images, URL url, String protocol, String protocolHost) throws Exception{
 		LinkQueue queue = new LinkQueue(links);
 		LinkProducer producer = new LinkProducer(links, url, protocol, protocolHost, queue, loggerService);
-		LinkConsumer consumer = new LinkConsumer(links, images, url, protocol, protocolHost, loggerService, queue);
+		LinkConsumer consumer1 = new LinkConsumer(links, images, url, protocol, protocolHost, loggerService, queue);
+		LinkConsumer consumer2 = new LinkConsumer(links, images, url, protocol, protocolHost, loggerService, queue);
+		LinkConsumer consumer3 = new LinkConsumer(links, images, url, protocol, protocolHost, loggerService, queue);
 		ExecutorService executorService = Executors.newFixedThreadPool(4);
-		executorService.submit(consumer);
+		executorService.submit(consumer1);
+		executorService.submit(consumer2);
+		executorService.submit(consumer3);
 		producer.start();
 		//consumer.start();
 		//Thread.currentThread().join();
