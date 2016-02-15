@@ -3,17 +3,13 @@
     <application>ImgUploadImg</application>
     <version>1</version>
     <threadsafe>true</threadsafe>
+    <public-root>/static-resources</public-root>
 </appengine-web-app>
 <static-files>
     <include path="/**.png" />
-</static-files>
-<static-files>
     <include path="/**.ico" />
-</static-files>
-<static-files>
     <include path="/**.js" />
-</static-files>
-<static-files>
     <include path="/**.css" />
+    <include path="/static/**" />
+    <include path="/static-resources/**" />
 </static-files>
-
