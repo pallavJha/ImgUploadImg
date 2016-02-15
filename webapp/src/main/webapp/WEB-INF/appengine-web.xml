@@ -4,12 +4,12 @@
     <version>1</version>
     <threadsafe>true</threadsafe>
     <public-root>/static-resources</public-root>
+    <static-files>
+        <include path="/**.png" />
+        <include path="/**.ico" />
+        <include path="/**.js" />
+        <include path="/**.css" />
+        <include path="/static/**" />
+        <include path="/static-resources/**" />
+    </static-files>
 </appengine-web-app>
-<static-files>
-    <include path="/**.png" />
-    <include path="/**.ico" />
-    <include path="/**.js" />
-    <include path="/**.css" />
-    <include path="/static/**" />
-    <include path="/static-resources/**" />
-</static-files>
